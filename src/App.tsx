@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import './App.css';
 import DatePicker from './DatePicker';
 
@@ -7,9 +7,9 @@ import DatePicker from './DatePicker';
 export default function App() {
 
   const [form, formSet] = useState({
-    destination: '',
+    end: 'end',
     start: 'start',
-    end: 'end'
+    destination: ''
   });
   const [open, openSet] = useState(false);
 
@@ -36,7 +36,7 @@ export default function App() {
         <div className='input'>
           <div onClick={() => openSet(!open)}>{form.start}</div>
           <div onClick={() => openSet(!open)}>{form.end}</div>
-         {open && <DatePicker />}
+          {open && <DatePicker formSet={(e: MouseEvent<HTMLDivElement>) => formSet({ ...form, start: (e.target as HTMLDivElement).innerText})}/>}
         </div>
         <div className='input'>
           <button onClick={handleSubmit} type='button'>Search</button>
