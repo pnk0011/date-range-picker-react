@@ -1,9 +1,10 @@
 import React from "react"
+import { isPropertySignature } from "typescript";
 import './DatePicker.css';
 
 const today = new Date()
-interface DatePickerProps {
-    formSet: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+type DatePickerProps = {
+    handleClick: (e: React.MouseEvent<HTMLDivElement>, value: string) => void
 }
 
 const DatePicker = (props: DatePickerProps) => {
@@ -12,7 +13,7 @@ const DatePicker = (props: DatePickerProps) => {
     let year = today.getFullYear()
 
     for (let i = 0; i < 24; i++) {
-        monthsArray.push(<Month month={month} year={year} />)
+        monthsArray.push(<Month handleClick={props.handleClick} month={month} year={year} />)
         year = month == 12 ? year + 1 : year
         month++
     }
@@ -20,7 +21,7 @@ const DatePicker = (props: DatePickerProps) => {
     return (
         <>
             <div className='content'>
-                <div className="calendar" onClick={(e) => props.formSet(e)}>
+                <div className="calendar" >
                     {monthsArray}
                 </div>
             </div>
@@ -30,14 +31,17 @@ const DatePicker = (props: DatePickerProps) => {
 
 export default DatePicker;
 
-interface BoxProps {
+type BoxProps = {
     value: number | string
+    handleClick: (e: React.MouseEvent<HTMLDivElement>, value: string) => void
+    month: number
+    year: number
 }
 
 function Box(props: BoxProps) {
 
     return (
-        <p>
+        <p onClick={(e) => props.handleClick(e, props.year + '-' + props.month + '-' + props.value)}>
             {props.value}
         </p>
     );
@@ -45,10 +49,14 @@ function Box(props: BoxProps) {
 
 
 
-interface IRowProps {
+type IRowProps = {
     dayOfWeek: number
     numberOfDaysInMonth: number
     rowNumber: number
+    month: number
+    year: number
+    handleClick: (e: React.MouseEvent<HTMLDivElement>, value: string) => void
+
 }
 
 function Row(props: IRowProps) {
@@ -57,13 +65,13 @@ function Row(props: IRowProps) {
     rowNumber += props.rowNumber;
     let startIndex: number = (rowNumber * 7);
     let endIndex = startIndex + 7;
-  
+
     return (
         <>
             <div className="row">
                 {
                     dates.slice(startIndex, endIndex).map((d) =>
-                        <Box value={d} />
+                        <Box month={props.month} year={props.year} handleClick={props.handleClick} value={d} />
 
                     )
                 }
@@ -71,11 +79,10 @@ function Row(props: IRowProps) {
         </>
     )
 }
-interface IMonthProps {
+type IMonthProps = {
     month: number
     year: number
-    // handleCalendarClicks: (e: React.MouseEvent<HTMLDivElement>) => void;
-    // strikethroughDays: boolean
+    handleClick: (e: React.MouseEvent<HTMLDivElement>, value: string) => void
 }
 
 function Month(props: IMonthProps) {
@@ -90,16 +97,19 @@ function Month(props: IMonthProps) {
             <h4 className='month'>{monthName} {props.year}</h4>
             <div className='days'>Sun Mon Tue Wed Thu Fri Sat</div>
             <div className='calendar'>
-                <Row dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={0} />
-                <Row dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={1} />
-                <Row dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={2} />
-                <Row dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={3} />
-                {(numberOfRows >= 5) && <Row dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={4} />}
-                {(numberOfRows == 6) && <Row dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={5} />}
+                <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={0} />
+                <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={1} />
+                <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={2} />
+                <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={3} />
+                {(numberOfRows >= 5) && <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={4} />}
+                {(numberOfRows == 6) && <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={5} />}
             </div>
         </>
     )
 }
+
+
+//Helpers
 export const getNumberOfRows = (numberOfDaysInMonth: number, dayOfTheWeek: number) => {
 
     switch (numberOfDaysInMonth - (21 + (7 - dayOfTheWeek))) {
