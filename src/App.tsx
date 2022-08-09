@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import DatePicker from './DatePicker';
 
@@ -52,7 +52,7 @@ export default function App() {
     let container = document.querySelectorAll('p')
     container.forEach((div) => {
       let box = div as HTMLParagraphElement;
-      if ((box.style.color == 'red' || 'green')) {
+      if ((box.style.color === 'red' || 'green')) {
         box.style.color = 'inherit';
         box.style.fontWeight = 'inherit';
         box.style.backgroundColor = 'inherit';

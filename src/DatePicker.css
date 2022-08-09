@@ -4,10 +4,8 @@
     bottom: 10%;
     left: 50%;
     transform: translate(-50%, 0);
-    /* width: max-content; */
     background: #fff;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
     border: 1px solid #ccc;
     border-radius: 11px;
 }
@@ -41,5 +39,4 @@
 .days{
     font-size: 14px;
     word-spacing: 12px;
-    /* margin-left: -4px; */
 }

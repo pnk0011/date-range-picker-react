@@ -1,5 +1,4 @@
 import React from "react"
-import { isPropertySignature } from "typescript";
 import './DatePicker.css';
 
 const today = new Date()
@@ -8,13 +7,13 @@ type DatePickerProps = {
 }
 
 const DatePicker = (props: DatePickerProps) => {
-    let monthsArray = new Array();
+    let monthsArray = [];
     let month = today.getMonth() + 1
     let year = today.getFullYear()
 
     for (let i = 0; i < 24; i++) {
         monthsArray.push(<Month handleClick={props.handleClick} month={month} year={year} />)
-        year = month == 12 ? year + 1 : year
+        year = month === 12 ? year + 1 : year
         month++
     }
 
@@ -102,7 +101,7 @@ function Month(props: IMonthProps) {
                 <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={2} />
                 <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={3} />
                 {(numberOfRows >= 5) && <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={4} />}
-                {(numberOfRows == 6) && <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={5} />}
+                {(numberOfRows === 6) && <Row month={props.month} year={props.year} handleClick={props.handleClick} dayOfWeek={dayOfWeek} numberOfDaysInMonth={numOfDays} rowNumber={5} />}
             </div>
         </>
     )
@@ -131,7 +130,7 @@ export const getOneMonthArray = (dayOfWeek: number, numberOfDaysInMonth: number)
     // assign or leave empty indexes between 0 and first day
     // assign value or leave empty indexes between last day of month and end of that row
     for (let i = 0; i < dates.length; i++) {
-        if (dates[i] == undefined) {
+        if (dates[i] === undefined) {
             dates[i] = '';
         }
     }
