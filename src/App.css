@@ -29,8 +29,143 @@
   justify-content: center;
 }
 
-@media(-webkit-min-device-pixel-ratio: 1.2) {
+.content {
+  background: #fff;
+  overflow: auto;
+  border: 1px solid #ccc;
+
+  display: flex;
+}
+
+.calendar {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 350px;
+  height: 295px;
+  overflow-y: scroll;
+}
+.month {
+  margin: 6px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+.row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+p {
+  color: black;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 40px;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.days {
+  font-size: 14px;
+  word-spacing: 12px;
+}
+
+.box-element {
+  cursor: pointer;
+}
+
+.disable-date-click {
+  pointer-events: none;
+}
+
+.selected-box {
+  background-color: lightblue;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.2) {
   * {
-    zoom: .98
+    zoom: 0.98;
   }
+}
+
+.year-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.month-box {
+  cursor: pointer;
+  padding: 18px;
+  width: 15px;
+  height: 15px;
+}
+
+.flex {
+  display: flex;
+}
+
+.box-width-height {
+  width: 15px;
+  height: 15px;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.range-display {
+  top: 50%;
+  left: 20%;
+}
+
+.align-items {
+  align-items: center;
+}
+
+.margin-right {
+  margin-right: 10px;
+}
+
+.selected-weekends {
+  width: 135px;
+  padding: 5px;
+}
+
+.weekends-display {
+  flex-wrap: wrap;
+  width: 650px;
+  height: 300px;
+  overflow-y: scroll;
+  top: 55%;
+  left: 20%;
+  border: 1px solid black;
+  margin-left: 20px;
+  margin-top: 45px;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+.date-picker-input {
+  width: 345px;
+  height: 35px;
+  border-radius: 5px;
+}
+
+.hidden {
+  visibility: hidden;
 }
